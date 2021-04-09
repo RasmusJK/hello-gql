@@ -1,4 +1,5 @@
 import animalResolver from './animalResolver.js';
 import speciesResolver from './speciesResolver.js';
 import categoryResolver from './categoryResolver.js';
-export default [animalResolver,speciesResolver,categoryResolver];
+import userResolver from "./userResolver.js";
+export default [animalResolver,speciesResolver,categoryResolver,userResolver];

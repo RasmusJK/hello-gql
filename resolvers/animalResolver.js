@@ -6,6 +6,7 @@
     },
 ];*/
 import Animal from '../models/animal.js';
+import {AuthenticationError} from 'apollo-server-express';
 
 
 
@@ -22,13 +23,19 @@ export default {
     },
 
     Mutation:{
-        addAnimal: (parent,args) =>{
-            console.log('animalResolver. addAnimal',args);
+        addAnimal: (parent,args,{user}) =>{
+            console.log('animalResolver. addAnimal',args,user);
+            if(!user){
+                throw new AuthenticationError('Not authenticated');
+            }
             const newAnimal = new Animal(args);
             return newAnimal.save()
         },
-        modifyAnimal: (parent, args) => {
-            console.log('animalResolver, modifyAnimal', args);
+        modifyAnimal: (parent, args,{user}) => {
+            console.log('animalResolver, modifyAnimal', args,user);
+            if(!user){
+                throw new AuthenticationError('Not authenticated');
+            }
             const data = {
                 animalName: args.animalName,
                 species: args.species

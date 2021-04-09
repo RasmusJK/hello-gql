@@ -6,6 +6,7 @@
     },
 ];*/
 import Category from '../models/category.js';
+import {AuthenticationError} from "apollo-server-express";
 
 export default {
     Species: {
@@ -15,8 +16,12 @@ export default {
         },
     },
     Mutation: {
-        addCategory: (parent, args) => {
-            console.log('categoryResolver, addCategory',args);
+        addCategory: (parent, args,{user}) => {
+            console.log('categoryResolver, addCategory',args,user);
+            if(!user){
+                throw new AuthenticationError('Not authenticated');
+            }
+
             const newCategory = new Category(args);
             return newCategory.save();
         },

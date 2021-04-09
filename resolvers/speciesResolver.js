@@ -6,6 +6,7 @@
     },
 ];*/
 import Species from '../models/species.js'
+import {AuthenticationError} from "apollo-server-express";
 
 export default {
     Animal: {
@@ -15,8 +16,12 @@ export default {
         },
     },
     Mutation: {
-        addSpecies: (parent, args) => {
-            console.log('speciesResolver, addSpecies', args);
+        addSpecies: (parent, args,{user}) => {
+
+            console.log('speciesResolver, addSpecies', args,user);
+            if(!user){
+                throw new AuthenticationError('Not authenticated');
+            }
             const newSpecies = new Species(args);
             return newSpecies.save();
         },
