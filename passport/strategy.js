@@ -11,7 +11,7 @@ const ExtractJWT = passportJWT.ExtractJwt;
 // local strategy for username password login
 passport.use(new Strategy(
     async (username, password, done) => {
-        console.log('username,pass', username, password);
+        console.log('username', username);
         try {
 //works
 
@@ -27,6 +27,7 @@ passport.use(new Strategy(
 
              const strippedUser = user.toObject();
              delete strippedUser.password;
+
              console.log('deleted pwd', strippedUser);
 
             /*read from database... here a possible hash of 'bar'
