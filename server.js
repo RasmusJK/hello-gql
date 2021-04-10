@@ -7,8 +7,6 @@ import db from './db/db.js'
 import {checkAuth} from "./passport/authenticate.js";
 import helmet from 'helmet';
 
-import localhost from "./security/localhost.js";
-import production from "./security/production.js";
 
 
 
@@ -45,10 +43,13 @@ import production from "./security/production.js";
 
         process.env.NODE_ENV = process.env.NODE_ENV || 'development';
         if (process.env.NODE_ENV === 'production'){
-            //TODO
-            production(app,3000);
+            console.log('production');
+            const { default: production } = await import('./security/production.js');
+            production(app, 3000);
         } else{
-            localhost(app,8000,3000);
+            console.log('localhost');
+            const { default: localhost } = await import('./security/localhost.js');
+            localhost(app, 8000, 3000);
         }
 
         /*  app.listen({port: 3000}, () =>
