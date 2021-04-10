@@ -12,6 +12,7 @@ export default {
         },
         login: async (parent, args, {req, res}) => {
             // inject username and password to req.body for passport
+
             console.log(args);
             req.body = args;
             try {
