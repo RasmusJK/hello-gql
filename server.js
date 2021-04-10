@@ -5,18 +5,10 @@ import resolvers from './resolvers/index.js';
 import express from 'express';
 import db from './db/db.js'
 import {checkAuth} from "./passport/authenticate.js";
-import https from 'https';
-import http from 'http';
 
-import fs from 'fs';
+import localhost from "./security/localhost.js";
+import production from "./security/production.js";
 
-const sslkey = fs.readFileSync('../ssl-key.pem');
-const sslcert = fs.readFileSync('../ssl-cert.pem')
-
-const options = {
-    key: sslkey,
-    cert: sslcert
-};
 
 
 
@@ -46,21 +38,22 @@ const options = {
 
         server.applyMiddleware({app});
 
+        process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+        if (process.env.NODE_ENV === 'production'){
+            //TODO
+            production(app,3000);
+        } else{
+            localhost(app,8000,3000);
+        }
 
-      /*  app.listen({port: 3000}, () =>
-            console.log(
-                `🚀 Server ready at http://localhost:3000${server.graphqlPath}`),
-        );
-*/
-        https.createServer(options, app).listen(8000);
+        /*  app.listen({port: 3000}, () =>
+              console.log(
+                  `🚀 Server ready at http://localhost:3000${server.graphqlPath}`),
+          );
+  */
 
-        http.createServer((req, res) => {
-            res.writeHead(301, { 'Location': 'https://localhost:8000' + req.url });
-            res.end();
-        }).listen(3000);
         console.log(
             `Server ready at http://localhost:3000${server.graphqlPath}`);
-
 
     } catch (e) {
         console.log('server error: ' + e.message);
