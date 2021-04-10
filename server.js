@@ -19,6 +19,8 @@ import helmet from 'helmet';
         const server = new ApolloServer({
             typeDefs: schemas,
             resolvers,
+            introspection: true,
+            playground: true,
             context: async ({req, res}) => {
                 if (req) {
                     const user = await checkAuth(req, res);
@@ -35,10 +37,11 @@ import helmet from 'helmet';
 
         const app = express();
 
-        server.applyMiddleware({app});
+        server.applyMiddleware({app,path: '/graphql'});
 
         app.use(helmet({
-            ieNoOpen: false
+            ieNoOpen: false,
+            contentSecurityPolicy: false
         }));
 
         process.env.NODE_ENV = process.env.NODE_ENV || 'development';
