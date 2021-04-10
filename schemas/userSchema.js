@@ -8,7 +8,6 @@ export default gql`
   type User {
     id: ID
     username: String
-    full_name: String
     token: String
   }
   extend type Mutation {

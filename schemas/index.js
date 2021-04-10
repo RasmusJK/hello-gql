@@ -18,6 +18,6 @@ export default [
     animalSchema,
     speciesSchema,
     categorySchema,
-    userSchema
+    userSchema,
 
 ];

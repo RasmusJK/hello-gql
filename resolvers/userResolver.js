@@ -1,6 +1,7 @@
 import {AuthenticationError} from 'apollo-server-express';
 import {login} from '../passport/authenticate.js';
 import bcrypt from "bcrypt";
+import User from '../models/user.js'
 
 
 export default {

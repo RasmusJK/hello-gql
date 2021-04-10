@@ -11,6 +11,7 @@ import {checkAuth} from "./passport/authenticate.js";
     try {
 
         await db();
+
         const server = new ApolloServer({
             typeDefs: schemas,
             resolvers,
