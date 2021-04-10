@@ -5,6 +5,7 @@ import resolvers from './resolvers/index.js';
 import express from 'express';
 import db from './db/db.js'
 import {checkAuth} from "./passport/authenticate.js";
+import helmet from 'helmet';
 
 import localhost from "./security/localhost.js";
 import production from "./security/production.js";
@@ -37,6 +38,10 @@ import production from "./security/production.js";
         const app = express();
 
         server.applyMiddleware({app});
+
+        app.use(helmet({
+            ieNoOpen: false
+        }));
 
         process.env.NODE_ENV = process.env.NODE_ENV || 'development';
         if (process.env.NODE_ENV === 'production'){
