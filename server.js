@@ -6,6 +6,7 @@ import express from 'express';
 import db from './db/db.js'
 import {checkAuth} from "./passport/authenticate.js";
 import helmet from 'helmet';
+import cors from 'cors';
 
 
 
@@ -36,7 +37,8 @@ import helmet from 'helmet';
         });
 
         const app = express();
-
+        app.use(cors());
+        app.use(express.static('public'));
         server.applyMiddleware({app,path: '/graphql'});
 
         app.use(helmet({
@@ -54,12 +56,12 @@ import helmet from 'helmet';
             const { default: localhost } = await import('./security/localhost.js');
             localhost(app, 8000, 3000);
         }
-
-        /*  app.listen({port: 3000}, () =>
+    /*
+          app.listen({port: 3000}, () =>
               console.log(
                   `🚀 Server ready at http://localhost:3000${server.graphqlPath}`),
           );
-  */
+*/
 
         console.log(
             `Server ready at http://localhost:3000${server.graphqlPath}`);
