@@ -17,7 +17,7 @@ window.addEventListener('load', async () => {
             if ('sync' in registration) {
                 form.addEventListener('submit',async (event)=>{
                     event.preventDefault();
-                    const message = { animal: animalName.value,/* species: animalSpecies.value, category: animalCategory.value*/};
+                    const message = { animal: animalName.value, species: "6068a92b05811e0b141dab40" /*species: animalSpecies.value, category: animalCategory.value*/};
                     console.log(message);
                     try {
                         await saveData('outbox', message);

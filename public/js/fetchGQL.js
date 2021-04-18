@@ -22,8 +22,8 @@ const fetchGraphql = async (query) => {
 const saveAnimal = async (message) => {
     const query = {
         query: `
-           mutation {
-  addAnimal(animalName: $animalName, species: "6068a92b05811e0b141dab40"){
+           Mutation {
+  addAnimal(animalName: $animal, species: $species){
     id
     animalName
   }`,
